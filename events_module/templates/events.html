@@ -1,0 +1,4 @@
+{% for item in events %}
+    {{ item.title }} -
+    <a href="{% url 'events:detail' item.slug %}">مشاهده</a><br>
+{% endfor %}

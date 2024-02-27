@@ -1,0 +1,17 @@
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="first_name" placeholder="نام">
+    <input type="text" name="last_name" placeholder="نام خانوادگی">
+    <input type="text" name="student_code" placeholder="شماره دانشجویی">
+    <input type="text" name="phone_number" placeholder="شماره تماس" maxlength="11">
+    <input type="text" name="entering_year" placeholder="سال ورود مثال 1400" maxlength="4">
+    <select name="field_of_study">
+        {% for item in fields %}
+            <option value="{{ item.id }}">{{ item.title }}</option>
+        {% endfor %}
+    </select>
+    <input type="password" name="password" placeholder="رمزعبور">
+    <input type="password" name="confirm_password" placeholder="تکرار رمزعبور">
+    <button type="submit">تایید</button>
+</form>
+{{ form.errors }}

@@ -1,0 +1,14 @@
+{{ user_card.event.title }}
+{{ user.username }}
+{{ user_card.total }}
+{% if user_card.total != 0 %}
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="discount" placeholder="کد تخففیف">
+    <button type="submit">اعمال</button>
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+</form>
+{% endif %}
+<a href="{% url 'payment:request' %}">نهایی کردن</a>

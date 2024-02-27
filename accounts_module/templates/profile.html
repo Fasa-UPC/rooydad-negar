@@ -1,0 +1,8 @@
+{% load jformat %}
+{{ user.first_name }}
+<h3>دوره های شما</h3>
+{% for item in events %}
+    <a href="{% url 'events:detail' item.event.slug %}">{{ item.event.title }}</a>
+    {{ item.date|jformat:"%Y/%m/%d - %H:%M" }}
+
+{% endfor %}
