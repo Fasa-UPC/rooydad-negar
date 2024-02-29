@@ -1,4 +1,8 @@
+{% load thumbnail %}
 {{ event.title }}<br>
+{% thumbnail event.image "733x579" crop="center" as im %}
+        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+    {% endthumbnail %}
 {% if is_registered %}
     {% if event.id in is_registered %}
         شما قبلا تو این دوره ثبت نام کرده اید
