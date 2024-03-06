@@ -4,5 +4,10 @@
 {% for item in events %}
     <a href="{% url 'events:detail' item.event.slug %}">{{ item.event.title }}</a>
     {{ item.date|jformat:"%Y/%m/%d - %H:%M" }}
-
 {% endfor %}
+<br>
+{% if request.user.is_superuser %}
+    <a href="{% url 'manage:events' %}">پنل مدیریت</a>
+{% endif %}
+<br>
+<a href="{% url 'account:logout' %}">خروج از حساب</a>

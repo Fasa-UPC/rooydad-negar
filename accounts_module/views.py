@@ -1,5 +1,5 @@
-from django.contrib.auth import login
-from django.shortcuts import render
+from django.contrib.auth import login, logout
+from django.shortcuts import render, redirect
 from django.views import View
 from .forms import *
 from events_module.models import *
@@ -77,3 +77,7 @@ def profile(request):
         'user': user,
         'events': user_events
     })
+
+def logout_user(request):
+    logout(request)
+    return redirect("events:events")
