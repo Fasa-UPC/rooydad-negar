@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
-from accounts_module.models import User
+from accounts_module.models import User, Field
 from events_module.models import Event, Participant
 from functions.process import save_to_csv
 
@@ -12,7 +12,8 @@ class ManageUser(View):
         if request.user.is_authenticated:
             if request.user.is_superuser:
                 users = User.objects.all()
-                return render(request, 'users.html', {'users': users})
+                fields = Field.objects.all()
+                return render(request, 'users.html', {'users': users, 'fields': fields})
         return HttpResponse("ظاهرا گم شدید")
 
 
@@ -69,3 +70,21 @@ def download_event_state(request, pk):
                 response['Content-Disposition'] = f'attachment; filename="{filename}"'
                 return response
     return HttpResponse("ظاهرا گم شدید")
+
+
+def user_info_by_field(request, pk):
+    users = User.objects.filter(field_of_study__slug=pk).all()
+    print(users)
+    fields = Field.objects.all()
+    return render(request, 'users.html', {
+        'users': users,
+        'fields': fields
+    })
+
+def cancel_event(request, event, user):
+    founder = Participant.objects.filter(event_id=event, user_id=user)
+    if founder:
+        founder.delete()
+    else:
+        HttpResponse("Error")
+    return redirect('manage:events')

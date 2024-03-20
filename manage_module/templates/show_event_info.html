@@ -21,7 +21,7 @@
             <td>{{ user.user.phone_number }}</td>
             <td>{{ user.date|jformat:"%Y/%m/%d - %H:%M" }}</td>
             <td>{{ user.total }}</td>
-    <td bgcolor="red" style="color: white">حذف</td>
+    <td bgcolor="red" style="color: white"><a href="{% url 'manage:cancel_event' event.id user.user.id %}">حذف</a></td>
     <td bgcolor="orange" style="color: white">انصراف</td>
     <td bgcolor="green" style="color: white">جزئیات</td>
     </tr>
