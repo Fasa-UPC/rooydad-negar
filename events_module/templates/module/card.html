@@ -1,0 +1,56 @@
+{% extends 'partial/main.html' %}
+
+{% block title %}پرداخت{% endblock %}
+
+
+{% block content %}
+    {% include 'partial/notification.html' %}
+    <section class="bg-gray-100 md:h-[80vh] mx-auto py-6 flex flex-col justify-center">
+        <h2 class="text-[1.6rem] px-8 md:px-16 py-6 azar-bold text-gray-500">تسویه حساب</h2>
+        <div class="bg-white mx-8 md:mx-16 rounded-md py-2 px-6">
+            <ul class="flex flex-col md:flex-row justify-between">
+                <li class="flex flex-col gap-y-2 border-b border-dashed border-gray-600 md:border-none py-2">
+                    <span class="flex items-center gap-x-2 azar-bold"><i
+                            class="fas fa-book-reader"></i>مشخصات رویداد </span>
+                    <span class="text-green-600">{{ user_card.event.title }}</span>
+                </li>
+                <li class="flex flex-col gap-y-2 border-b border-dashed border-gray-600 md:border-none py-2">
+                    <span class="flex items-center gap-x-2 azar-bold"><i class="fas fa-chalkboard-teacher"></i> نام مدرس </span>
+                    <span class="text-green-600">{{ user_card.event.teacher }}</span>
+                </li>
+                <li class="flex flex-col py-2 gap-y-2">
+                    <span class="flex items-center gap-x-2 azar-bold"><i
+                            class="fas fa-money-check"></i>هزینه رویداد </span>
+                    <span class="text-green-600">{{ user_card.event.price }} تومان</span>
+                </li>
+            </ul>
+        </div>
+        <h3 class="bg-white p-4 rounded-md mx-8 text-center md:mx-16 my-2 azar-bold text-green-500 border border-green-600 border-dashed">
+            مبلغ قابل پرداخت: {{ user_card.total }} تومان</h3>
+        {% if user_card.total != 0 %}
+            <form method="post" class="block mx-auto my-4">
+                {% csrf_token %}
+                <input type="text" name="discount" placeholder="کد تخففیف" class="rounded-md py-2 px-6 text-[.8rem]">
+                <button type="submit" class="text-white bg-green-600 py-2 px-4 rounded-lg text-[.8rem]">اعمال</button>
+                {% for message in messages %}
+                    <span class="block text-center text-[0.8rem] mb-2 text-gray-500 mt-4">{{ message }}</span>
+                {% endfor %}
+            </form>
+        {% endif %}
+        <a href="{% url 'payment:request' %}"
+           class="text-white gr azar-bold md:text-[1rem] rounded-2xl py-2 px-6 block mx-auto w-fit">پرداخت</a>
+    </section>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+{#{% if user_card.total != 0 %}#}
+{#{% endif %}#}
+<a href="{% url 'payment:request' %}">نهایی کردن</a>

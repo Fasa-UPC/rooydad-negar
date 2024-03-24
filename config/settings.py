@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'accounts_module.apps.AccountsModuleConfig',
     'events_module.apps.EventsModuleConfig',
     'manage_module.apps.ManageModuleConfig',
+    'payment_module.apps.PaymentModuleConfig',
 
     'django_jalali',
     'sorl.thumbnail'

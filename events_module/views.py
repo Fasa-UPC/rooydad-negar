@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 class EventsList(ListView):
     queryset = Event.objects.filter(status=True).all()
     context_object_name = 'events'
-    template_name = 'events.html'
+    template_name = 'module/events.html'
 
 
 def event_detail(request, pk):
@@ -20,7 +20,7 @@ def event_detail(request, pk):
         is_registered = Participant.objects.filter(user=request.user, status=True).values_list('event_id', flat=True)
     else:
         is_registered = False
-    return render(request, 'details.html', context={
+    return render(request, 'module/details.html', context={
         'event': event,
         'is_registered': is_registered
     })
@@ -63,7 +63,7 @@ def card(request):
                 messages.error(request, "این کد را قبلا استفاده کرده اید")
         else:
             messages.error(request, "کد تخفیف وجود ندارد یا ظرفیت آن به پایان رسیده")
-    return render(request, 'card.html', context={
+    return render(request, 'module/card.html', context={
         'user_card': user_card,
         'user': user
     })

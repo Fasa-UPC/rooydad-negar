@@ -1,0 +1,108 @@
+{% extends 'partial/main.html' %}
+{% load thumbnail %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block content %}
+    {% include 'partial/notification.html' %}
+    <section class="flex gap-y-6 flex-col-reverse md:flex-row md:items-start py-2 px-6 bg-gray-100">
+        <div class="md:w-1/3 md:px-6 pb-4 md:sticky top-0">
+            <div class="bg-white rounded-md h-fit pb-6 mx-auto w-full">
+                <span class="azar border-b mb-4 border-gray-500 border-dashed block text-green-600 text-center text-[1.2rem] my-2 azar-bold py-4">جزئیات دوره</span>
+                <ul class="flex flex-col gap-y-4">
+                    <li class="text-gray-600 text-[0.9rem] flex justify-between items-center px-6">
+                        <span class="azar-bold">عنوان دوره</span>
+                        <span>{{ event.title }}</span>
+                    </li>
+                    <li class="text-gray-600 text-[0.9rem] flex justify-between items-center px-6">
+                        <span class="azar-bold">ظرفیت باقی مانده</span>
+                        <span>{{ event.capacity }} نفر</span>
+                    </li>
+                    <li class="text-gray-600 text-[0.9rem] flex justify-between items-center px-6">
+                        <span class="azar-bold">نام مدرس</span>
+                        <span>{{ event.teacher }}</span>
+                    </li>
+                    <li class="text-gray-600 text-[0.9rem] flex justify-between items-center px-6">
+                        <span class="azar-bold">تاریخ شروع</span>
+                        <span>{{ event.start_date }}</span>
+                    </li>
+                    <li class="text-gray-600 text-[0.9rem] flex justify-between items-center px-6">
+                        <span class="azar-bold">محل برگزاری</span>
+                        <span>{{ event.place }}</span>
+                    </li>
+                </ul>
+            </div>
+            {% if event.days_of_week %}
+                <div class="bg-white rounded-md h-fit pb-6 mx-auto">
+                    <span class="azar block text-green-600 text-center text-[1.2rem] my-2 azar-bold py-4">روزهای برگزاری</span>
+                    <ul class="flex flex-col gap-y-4">
+                        <li class="text-gray-600 text-[0.9rem] flex flex-col gap-y-2 px-4 text-center justify-center">
+                            <span class="leading-8 px-6 border border-gray-500 border-dashed rounded-md">{{ event.days_of_week | linebreaksbr }}</span>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+            <div class="bg-white rounded-md h-fit mx-auto my-2">
+                <ul class="flex flex-col gap-y-4">
+                    <li class="text-gray-600 text-[0.9rem] flex justify-between items-center py-4 px-4">
+                        {% if is_registered %}
+                            {% if event.id in is_registered %}
+                                شما قبلا تو این دوره ثبت نام کرده اید
+                            {% else %}
+                                {% if event.status == True %}
+                                    {% if event.capacity >= 1 %}
+                                        <a href="{% url 'events:register' event.id %}"
+                                           class="bg-green-600 text-white text-[1.1rem] gr md:text-[1rem] py-1 px-2 rounded-md">ثبت
+                                            نام</a>
+                                    {% else %}
+                                        ظرفیت این دوره به پایان رسیده
+                                    {% endif %}
+                                {% else %}
+                                    ثبت نام این دوره غیرفعال است
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            {% if event.status == True %}
+                                {% if event.capacity >= 1 %}
+                                    <a href="{% url 'events:register' event.id %}"
+                                       class="bg-green-600 text-white text-[1.1rem] gr md:text-[1rem] py-1 px-2 rounded-md">ثبت
+                                        نام</a>
+                                {% else %}
+                                    ظرفیت این دوره به پایان رسیده
+                                {% endif %}
+                            {% else %}
+                                ثبت نام این دوره غیرفعال است
+                            {% endif %}
+                        {% endif %}
+                        <span class="text-gray-600 text-[1.1rem] md:text-[1rem] py-1">{{ event.price }} تومان</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex gap-y-4 flex-col justify-center mx-auto md:w-[57%]">
+            {% thumbnail event.image "733x579" crop="center" as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                     class="border-8 border-white rounded-md">
+            {% endthumbnail %}
+            <div class="bg-white p-4 rounded-md">
+                <span class="text-[1.2rem] text-green-600 azar-bold">توضیحات وبینار</span>
+                <p class="text-[0.9rem] text-gray-600 leading-10 my-2 text-justify">
+
+                    کوچینگ یک سبک مشاوره جدید میباشد که در دنیا کمتر از40سال و در ایران فقط 12سال سابقه دارد.
+
+                    در کوچینگ شما از نقطه حاضر به نقطه مطلوب خواهید رسید. تجربه نشان داده است در کوچینگ 80%نتیجه گیری
+                    داریم.
+
+                    پیشنهاد می‌شود که حد اقل یک جلسه با این مدرس جلسه کوچینگ برقرار کنید، چرا که جلسات اول کوچینگ این
+                    مدرس به طور کلی رایگان هست و این یک پیشنهاد بدون ریسک برای شماست که هزینه ای نمیکنید و می‌توانید
+                    بصورت غیر حضوری هم جلسه اول را برگزار کنید(تماس تصویری و صوتی) و قطعا خودتان پیشنهاد جلسه دوم را
+                    خواهید داد.
+
+                    در مشاوره، مشاور پیشنهاد و راه حل به مراجع خود می‌دهد، اما در کوچینگ مشاور با شیوه های کوچینگ وار
+                    مراجعه را به کشف و راحلی که از ذهن خودش کشف کند میرساند باکوچینگ، افرادی که مدت ها یا سالهاست منتظر
+                    تحقق اهداف و خواسته های خود هستند و به آن نرسیده اند، به اهداف خود دست می یابند
+                </p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

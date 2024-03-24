@@ -35,7 +35,7 @@ def request_payment(request):
             if useable:
                 useable.status = True
                 useable.save()
-            return HttpResponse("پرداخت شد")
+            return redirect('payment:seccess')
     else:
         return redirect("events:events")
     data = {
@@ -99,8 +99,16 @@ def verify_payment(request):
                 useable.status = True
                 useable.save()
                 Discount.objects.filter(code=useable.code).update(count=F('count') - 1)
-            return HttpResponse("پرداخت شد")
+            return redirect('payment:seccess')
         else:
-            return HttpResponse("پرداخت ناموفق بود")
+            return redirect('payment:failur')
     else:
-        return render(request, 'error_page.html', {'error_message': 'خطا در برقراری ارتباط با زرین‌پال!'})
+        return redirect('payment:failur')
+
+
+def seccess_payment(request):
+    return render(request, 'module/seccess.html')
+
+
+def failur_payment(request):
+    return render(request, 'module/failure.html')
