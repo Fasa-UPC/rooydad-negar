@@ -1,13 +1,48 @@
+{% extends 'partial/main.html' %}
 {% load jformat %}
-{{ user.first_name }}
-<h3>دوره های شما</h3>
-{% for item in events %}
-    <a href="{% url 'events:detail' item.event.slug %}">{{ item.event.title }}</a>
-    {{ item.date|jformat:"%Y/%m/%d - %H:%M" }}
-{% endfor %}
-<br>
-{% if request.user.is_superuser %}
-    <a href="{% url 'manage:events' %}">پنل مدیریت</a>
-{% endif %}
-<br>
-<a href="{% url 'account:logout' %}">خروج از حساب</a>
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <section class="bg-gray-100 md:h-[80vh] mx-auto py-6 px-2">
+        <h2 class="text-[1.6rem] px-4 md:px-16 py-6 azar-bold text-gray-500">پنل کاربری</h2>
+        <div class="flex flex-col md:flex-row gap-x-4 gap-y-4">
+            <div class="md:w-1/4 bg-white p-2 rounded-lg h-fit flex flex-col items-center">
+                <span class="text-[1.1rem] py-4 text-gray-500 inline-block my-2 border-b border-r-gray-500 border-dashed">سلام رضا خوش اومدی :)</span>
+                <ul class="flex flex-col gap-y-2 my-6 w-full px-2">
+                    <a href="" class="">
+                        <li class="bg-gray-50 w-full p-2 border-r-4 border-gray-500 hover:bg-gray-200 transition-all duration-300">
+                            اطلاعات کاربری
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="bg-gray-50 w-full p-2 border-r-4 border-gray-500 hover:bg-gray-200 transition-all duration-300">
+                            رویداد های ثبت نام شده
+                        </li>
+                    </a>
+                    {% if user.is_superuser %}
+                        <a href="{% url 'manage:events' %}">
+                            <li class="bg-gray-50 w-full p-2 border-r-4 border-gray-500 hover:bg-gray-200 transition-all duration-300">
+                                پنل مدیریت
+                            </li>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'account:logout' %}">
+                        <li class="bg-gray-50 w-full p-2 border-r-4 border-gray-500 hover:bg-gray-200 transition-all duration-300">
+                            خروج از حساب
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="bg-white flex md:justify-start gap-x-6 mx-auto justify-center flex-wrap w-full p-2 gap-y-4 rounded-lg">
+                <ul class="flex flex-col gap-y-4 justify-between w-full px-4 gap-x-6 my-6">
+                    <li class="text-gray-600">نام: {{ user.first_name }}</li>
+                    <li class="text-gray-600">نام خانوادگی: {{ user.last_name }}</li>
+                    <li class="text-gray-600">شماره دانشجویی: {{ user.student_code }}</li>
+                    <li class="text-gray-600">رشته: {{ user.field_of_study }}</li>
+                    <li class="text-gray-600">شماره تماس: {{ user.phone_number }}</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}
