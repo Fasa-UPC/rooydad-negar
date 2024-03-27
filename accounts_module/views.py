@@ -12,7 +12,7 @@ class RegisterUser(View):
     def get(self, request):
         form = RegisterForm()
         fields = Field.objects.all()
-        return render(request, 'register.html', context={
+        return render(request, 'module/register.html', context={
             'from': form,
             'fields': fields
         })
@@ -31,12 +31,12 @@ class RegisterUser(View):
             user.field_of_study = form.cleaned_data.get('field_of_study')
             user.set_password(form.cleaned_data.get('password'))
             user.save()
-            return render(request, 'register.html', context={
+            return render(request, 'module/register.html', context={
                 'from': form,
                 'fields': fields
             })
         else:
-            return render(request, 'register.html', context={
+            return render(request, 'module/register.html', context={
                 'form': form,
                 'fields': fields
             })
@@ -45,7 +45,7 @@ class RegisterUser(View):
 class LoginUser(View):
     def get(self, request):
         form = LoginForm()
-        return render(request, 'login.html', context={
+        return render(request, 'module/login.html', context={
             'form': form
         })
 
@@ -64,16 +64,25 @@ class LoginUser(View):
                 form.add_error('phone_number', "کاربر یافت نشد")
 
         if user is not None:
-            return render(request, 'profile.html', context={'user': user})
+            return render(request, 'module/profile.html', context={'user': user})
         else:
-            return render(request, 'login.html', {'form': form})
+            return render(request, 'module/login.html', {'form': form})
 
 
 @login_required(login_url='/account/login')
 def profile(request):
     user = request.user
     user_events = Participant.objects.filter(user=user, status=True).all()
-    return render(request, 'profile.html', {
+    return render(request, 'module/profile.html', {
+        'user': user,
+        'events': user_events
+    })
+
+@login_required(login_url='/account/login')
+def profile_events(request):
+    user = request.user
+    user_events = Participant.objects.filter(user=user, status=True).all()
+    return render(request, 'module/profile_events.html', {
         'user': user,
         'events': user_events
     })
