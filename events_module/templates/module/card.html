@@ -30,7 +30,7 @@
         {% if user_card.total != 0 %}
             <form method="post" class="block mx-auto my-4">
                 {% csrf_token %}
-                <input type="text" name="discount" placeholder="کد تخففیف" class="rounded-md py-2 px-6 text-[.8rem]">
+                <input type="text" name="discount" placeholder="کد تخفیف" class="rounded-md py-2 px-6 text-[.8rem]">
                 <button type="submit" class="text-white bg-green-600 py-2 px-4 rounded-lg text-[.8rem]">اعمال</button>
                 {% for message in messages %}
                     <span class="block text-center text-[0.8rem] mb-2 text-gray-500 mt-4">{{ message }}</span>
