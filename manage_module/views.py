@@ -31,7 +31,7 @@ class ManageEvents(View):
         if request.user.is_authenticated:
             if request.user.is_superuser:
                 events = Event.objects.all()
-                return render(request, 'manage_events.html', {'events': events})
+                return render(request, 'module/manage_events.html', {'events': events})
         return HttpResponse("ظاهرا گم شدید")
 
 
