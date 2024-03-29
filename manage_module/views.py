@@ -48,7 +48,7 @@ class ShowEventsInfo(View):
                     else:
                         ...
 
-                return render(request, 'show_event_info.html', context={
+                return render(request, 'module/show_event_info.html', context={
                     'event': event,
                     'users': users,
                     'count': users.count(),

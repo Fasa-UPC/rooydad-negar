@@ -1,5 +1,6 @@
 {% extends 'partial/main.html' %}
 {% load jformat %}
+{% load thumbnail %}
 
 {% block title %}{% endblock %}
 
@@ -37,21 +38,42 @@
             <div class="bg-white flex md:justify-start gap-x-6 mx-auto justify-center flex-wrap w-full p-2 gap-y-4 rounded-lg">
                 {% for item in events %}
                     <div class="box shadow-lg md:w-1/4 w-[70%] p-1 rounded-lg">
-                    <a href="">
-                        <img src="{{ item.event.image.url }}" alt=""
-                             class="w-[18rem] block mx-auto"/>
-                    </a>
-                    <h3 class="text-[1.2rem] my-2 px-2">{{ item.event.title }}</h3>
-                    <span class="block text-[0.8rem] my-2 px-2">{{ item.event.teacher }}</span>
-                    <p class="text-[0.9rem] my-4 px-2">شما در این کارگاه می آموزید که چطور باید با بهترین روش ممکن در یک
-                        شرکت کار پیدا کنید</p>
-                    <div class="flex justify-between items-center p-2 border-t border-gray-600">
-                        <span class="text-gray-500 text-[0.9rem]">تاریخ ثبت نام:</span>
-                        <span class="text-gray-500 text-[0.9rem]">{{ item.date | jformat:"%Y/%m/%d - %H:%M" }}</span>
+                        <a href="">
+                            {% thumbnail item.event.image "345x273" crop="center" as im %}
+                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                >
+                            {% endthumbnail %}
+                        </a>
+                        <h3 class="text-[1.2rem] my-2 px-2">وبینار خود شفاهی</h3>
+                        <span class="block text-[0.8rem] my-2 px-2">رضا مردانی</span>
+                        <p class="text-[0.9rem] my-4 px-2">شما در این کارگاه می آموزید که چطور باید با بهترین روش ممکن
+                            در یک
+                            شرکت کار پیدا کنید</p>
+                        <div class="flex justify-between items-center p-2 border-t border-gray-600">
+                            <span class="text-gray-500 text-[0.9rem]">تاریخ ثبت نام:</span>
+                            <span class="text-gray-500 text-[0.9rem]">14:30 - 1402/12/12</span>
+                        </div>
                     </div>
-
                 {% endfor %}
-                </div>
+
+                {#            <div class="bg-white flex md:justify-start gap-x-6 mx-auto justify-center flex-wrap w-full p-2 gap-y-4 rounded-lg">#}
+                {#                {% for item in events %}#}
+                {#                    <div class="box shadow-lg p-1 rounded-lg">#}
+                {#                                    <a href="">#}
+                {#                                        <img src="{{ item.event.image.url }}" alt=""#}
+                {#                                             class="w-[18rem] block mx-auto"/>#}
+                {#                                    </a>#}
+                {#                    <h3 class="text-[1.2rem] my-2 px-2">{{ item.event.title }}</h3>#}
+                {#                    <span class="block text-[0.8rem] my-2 px-2">{{ item.event.teacher }}</span>#}
+                {#                    <p class="text-[0.9rem] my-4 px-2">شما در این کارگاه می آموزید که چطور باید با بهترین روش ممکن در یک#}
+                {#                        شرکت کار پیدا کنید</p>#}
+                {#                    <div class="flex justify-between items-center p-2 border-t border-gray-600">#}
+                {#                        <span class="text-gray-500 text-[0.9rem]">تاریخ ثبت نام:</span>#}
+                {#                        <span class="text-gray-500 text-[0.9rem]">{{ item.date | jformat:"%Y/%m/%d - %H:%M" }}</span>#}
+                {#                    </div>#}
+                {#                {% endfor %}#}
+                {#                </div>#}
+                {#            </div>#}
             </div>
         </div>
     </section>

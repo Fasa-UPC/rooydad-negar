@@ -1,0 +1,89 @@
+{% extends 'partial/admin.html' %}
+{% load jformat %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <h1 class="flex items-center text-2xl text-gray-500 azar-bold justify-center my-4 dark:text-white">
+        {{ event.title }}<span
+            class="bg-blue-100 text-[1rem] text-green-600 font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-green-800 ms-2"
+    >گزارش</span
+    >
+    </h1>
+    <section class="bg-white my-2 rounded-md mx-auto container p-6">
+        <div class="flex flex-col">
+            <div class="-m-1.5 overflow-x-auto">
+                <div class="p-1.5 min-w-full inline-block align-middle">
+                    <div class="border overflow-hidden dark:border-gray-700">
+                        <table class="min-w-full divide-y divide-gray-200 overflow-x-auto border border-gray-100">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    نام و نام خانوادگی
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    شماره دانشجویی
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    شماره تماس
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    تاریخ ثبت نام
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    پرداختی
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    عملیات
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                            {% for user in users %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center gap-x-2">
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">{{ user.user.first_name }} {{ user.user.last_name }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ user.user.student_code }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-sm leading-5 rounded-full">{{ user.user.phone_number }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.date | jformat:"%Y/%m/%d - %H:%M" }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.total }}
+                                        تومان
+                                    </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-red-500">
+                                        <a href="{% url 'manage:cancel_event' event.id user.user.id %}">حذف</a>
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="container mx-auto flex flex-wrap md:flex-nowrap justify-center gap-2 px-2 md:px-0">
+        <span class="bg-gray-300 text-gray-700 azar-bold text-sm p-2 w-full rounded-md text-center">تعداد افراد ثبت نام شده: {{ count }} نفر</span>
+        <span class="bg-gray-300 text-gray-700 azar-bold text-sm p-2 w-full rounded-md text-center">مجموع مبلغ پرداخت شده: {{ amount }} تومان</span>
+    </div>
+    <a href="{% url 'manage:download_event' event.id %}"
+       class="text-center block mx-auto m-6 bg-green-600 text-white p-2 w-fit rounded-md text-sm">دانلود فایل
+        گزارش</a>
+
+{% endblock %}
