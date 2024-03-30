@@ -51,7 +51,7 @@
                             شرکت کار پیدا کنید</p>
                         <div class="flex justify-between items-center p-2 border-t border-gray-600">
                             <span class="text-gray-500 text-[0.9rem]">تاریخ ثبت نام:</span>
-                            <span class="text-gray-500 text-[0.9rem]">14:30 - 1402/12/12</span>
+                            <span class="text-gray-500 text-[0.9rem]">{{ item.date | jformat:"%Y/%m/%d - %H:%M" }}</span>
                         </div>
                     </div>
                 {% endfor %}

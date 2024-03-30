@@ -1,0 +1,44 @@
+{% extends 'partial/admin.html' %}
+{% load jformat %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <section class="bg-white my-2 rounded-md mx-auto container p-6">
+        <div class="bg-white rounded-lg shadow-lg px-8 py-10 max-w-xl mx-auto">
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center">
+                    <div class="text-gray-500 font-semibold text-lg">اطلاعات کاربری</div>
+                </div>
+            </div>
+            <div class="border-b-2 border-gray-300 pb-8 mb-8">
+                <h2 class="text-2xl font-bold mb-4">{{ user.first_name }} {{ user.last_name }}</h2>
+                <div class="text-gray-700 mb-2">شماره دانشجویی: {{ user.student_code }}</div>
+                <div class="text-gray-700 mb-2">شماره تماس: {{ user.phone_number }}</div>
+                <div class="text-gray-700 mb-2">رشته: {{ user.field_of_study }}</div>
+                <div class="text-gray-700">ورودی: {{ user.entering_year }}</div>
+            </div>
+            <table class="w-full text-right mb-8">
+                <thead>
+                <tr>
+                    <th class="text-gray-700 font-bold uppercase py-2">دوره</th>
+                    <th class="text-gray-700 font-bold uppercase py-2">قیمت</th>
+                    <th class="text-gray-700 font-bold uppercase py-2">تاریخ</th>
+                    <th class="text-gray-700 font-bold uppercase py-2">پرداختی</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in events %}
+                    <tr>
+                        <td class="py-4 text-gray-700">{{ item.event.title | truncatewords:4 }}</td>
+                        <td class="py-4 text-gray-700">{{ item.event.price }} تومان</td>
+                        <td class="py-4 text-gray-700">{{ item.date | jformat:"%Y/%m/%d - %H:%M" }}</td>
+                        <td class="py-4 text-gray-700">{{ item.total }} تومان</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}

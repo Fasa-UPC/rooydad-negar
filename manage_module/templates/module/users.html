@@ -1,0 +1,80 @@
+{% extends 'partial/admin.html' %}
+{% load jformat %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+    <div class="container mx-auto flex my-6 gap-x-2">
+        <a href="{% url 'manage:users' %}" class="bg-gray-400 text-white px-2 py-1 rounded-md text-sm">همه</a>
+        {% for item in fields %}
+            <a href="{% url 'manage:user_info_field' item.slug %}"
+               class="bg-gray-400 text-white px-2 py-1 rounded-md text-sm">{{ item.title }}</a>
+        {% endfor %}
+    </div>
+    <section class="bg-white my-2 rounded-md mx-auto container p-6">
+        <div class="flex flex-col">
+            <div class="-m-1.5 overflow-x-auto">
+                <div class="p-1.5 min-w-full inline-block align-middle">
+                    <div class="border overflow-hidden dark:border-gray-700">
+                        <table class="min-w-full divide-y divide-gray-200 overflow-x-auto border border-gray-100">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    نام و نام خانوادگی
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    شماره دانشجویی
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    شماره تماس
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    سال ورود
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    رشته
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    عملیات
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                            {% for user in users %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center gap-x-2">
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">{{ user.first_name }} {{ user.last_name }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ user.student_code }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-sm leading-5 rounded-full">{{ user.phone_number }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.entering_year }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.field_of_study }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <a href="{% url 'manage:user' user.id %}"
+                                           class="text-green-600 hover:text-green-900">مشاهده</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

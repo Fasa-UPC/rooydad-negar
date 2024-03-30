@@ -34,6 +34,7 @@ def request_payment(request):
             capacity.save()
             if useable:
                 useable.status = True
+                Discount.objects.filter(code=useable.code).update(count=F('count') - 1)
                 useable.save()
             return redirect('payment:seccess')
     else:

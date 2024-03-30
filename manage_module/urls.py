@@ -10,5 +10,6 @@ urlpatterns = [
     path('events', views.ManageEvents.as_view(), name='events'),
     path('event/<pk>', views.ShowEventsInfo.as_view(), name='show_event'),
     path('event/state/<pk>', views.download_event_state, name='download_event'),
-    path('cancel/<event>/<user>', views.cancel_event, name='cancel_event')
+    path('cancel/<event>/<user>', views.cancel_event, name='cancel_event'),
+    path('discount', views.manage_discount, name='manage_discount')
 ]

@@ -9,9 +9,13 @@
 <body class="azar relative bg-gray-50">
 <header class="bg-emerald-600 p-6 flex md:justify-between justify-center">
     <ul class="text-white flex gap-x-6 text-[0.9rem]">
-       <a href="{% url 'manage:events' %}"><li>دوره ها</li></a>
-        <li>کاربران</li>
-        <li>کد تخفیف ها</li>
+        <a href="{% url 'manage:events' %}">
+            <li>دوره ها</li>
+        </a>
+        <a href="{% url 'manage:users' %}">
+            <li>کاربران</li>
+        </a>
+        <a href="{% url 'manage:manage_discount' %}"><li>کد تخفیف ها</li></a>
     </ul>
     <h1 class="text-white azar-bold hidden md:block">پنل مدیریت</h1>
 </header>
