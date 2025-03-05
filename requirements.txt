@@ -1,0 +1,14 @@
+asgiref==3.8.1
+certifi==2025.1.31
+charset-normalizer==3.4.1
+Django==5.1.6
+django-jalali==7.3.0
+idna==3.10
+jalali_core==1.0.0
+jdatetime==5.2.0
+pillow==11.1.0
+requests==2.32.3
+sorl-thumbnail==12.11.0
+sqlparse==0.5.3
+typing_extensions==4.12.2
+urllib3==2.3.0
