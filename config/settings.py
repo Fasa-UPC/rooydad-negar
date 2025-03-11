@@ -132,3 +132,66 @@ AUTH_USER_MODEL = "accounts_module.User"
 MERCHANT = "41af5198-62bc-4c31-af3a-424f4e73ec70" #empty
 
 SANDBOX = False
+
+
+'''
+add axes and ...
+  باید ب اپ ها اضاف بشه و همچنینaxes همچنین
+  این میدل ویر ها 
+'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'axes.middleware.AxesMiddleware',
+    
+    INSTALLED_APPS = [
+    	'axes',
+            ]
+
+ی سری تنظیمات امنیتی اضاف کردم ک بعدا یادمون نره ولی ب نظرم تو زمان توسعه غیرفعال بمونن بهتره
+'''
+'''
+##########################################3
+#تنظیمات django-axes (برای جلوگیری از حملات Brute Force)
+AXES_FAILURE_LIMIT = 5  # تعداد تلاش‌های ناموفق قبل از مسدودسازی
+AXES_COOLOFF_TIME = 5*(1/60) # زمان به ساعت (مثلاً ۱ ساعت)
+AXES_LOCKOUT_PARAMETERS = [[ "ip_address"]]
+AXES_LOCKOUT_TEMPLATE = 'login_app/blocked.html'
+AXES_RESET_ON_SUCCESS = True  # ریست تلاش‌های ناموفق پس از ورود موفق
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',  # اضافه کردن AxesBackend
+    'django.contrib.auth.backends.ModelBackend',  # backend پیش‌فرض جنگو
+]
+
+#####################################33
+#تنظیمات امنیتی SSL و HSTS
+SECURE_SSL_REDIRECT = True  # کاربران را به HTTPS هدایت کن
+SECURE_HSTS_SECONDS = 31536000  # فعال‌سازی HSTS برای یک سال
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  
+SECURE_HSTS_PRELOAD = True  
+#####################################
+#تنظیمات Referrer Policy و XSS
+SECURE_REFERRER_POLICY = "same-origin"
+SECURE_BROWSER_XSS_FILTER = True  # جلوگیری از XSS در مرورگر
+SECURE_CONTENT_TYPE_NOSNIFF = True  # جلوگیری از MIME Sniffing
+######################################
+#تنظیمات CSRF و Clickjacking
+CSRF_COOKIE_SECURE = True  
+CSRF_COOKIE_HTTPONLY = True  
+X_FRAME_OPTIONS = "DENY"  # جلوگیری از Clickjacking
+##################################################
+#تنظیمات Session
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 60*30  # 30 دقیقه به ثانیه
+SESSION_COOKIE_PATH = '/'  # کوکی برای کل سایت اعمال می‌شود
+SESSION_COOKIE_SECURE = True  # اگر از HTTPS استفاده می‌کنید، این را True کنید
+SESSION_COOKIE_HTTPONLY = True  # جلوگیری از دسترسی JavaSFript به کوکی
+SESSION_COOKIE_SAMESITE = 'Lax'  # برای جلوگیری از حملات CSRF
+SESSION_SAVE_EVERY_REQUEST = True
+####################################
+'''
+
