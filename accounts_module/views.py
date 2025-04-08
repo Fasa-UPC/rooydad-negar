@@ -13,7 +13,7 @@ class RegisterUser(View):
         form = RegisterForm()
         fields = Field.objects.all()
         return render(request, 'module/register.html', context={
-            'from': form,
+            'form': form,
             'fields': fields
         })
 
@@ -21,24 +21,27 @@ class RegisterUser(View):
         form = RegisterForm(data=request.POST)
         fields = Field.objects.all()
         if form.is_valid():
-            user = User()
-            user.first_name = form.cleaned_data.get('first_name')
-            user.last_name = form.cleaned_data.get('last_name')
-            user.username = form.cleaned_data.get('phone_number')
-            user.student_code = form.cleaned_data.get('student_code')
-            user.phone_number = form.cleaned_data.get('phone_number')
-            user.entering_year = form.cleaned_data.get('entering_year')
-            user.field_of_study = form.cleaned_data.get('field_of_study')
+            user = User(
+                first_name=form.cleaned_data.get('first_name'),
+                last_name=form.cleaned_data.get('last_name'),
+                username=form.cleaned_data.get('phone_number'),
+                student_code=form.cleaned_data.get('student_code'),
+                phone_number=form.cleaned_data.get('phone_number'),
+                entering_year=form.cleaned_data.get('entering_year'),
+                field_of_study=form.cleaned_data.get('field_of_study')
+            )
             user.set_password(form.cleaned_data.get('password'))
             user.save()
             return render(request, 'module/register.html', context={
-                'from': form,
-                'fields': fields
+                'form': form,
+                'fields': fields,
+                'is_successful': True,
             })
         else:
             return render(request, 'module/register.html', context={
                 'form': form,
-                'fields': fields
+                'fields': fields,
+                'is_successful': False,
             })
 
 

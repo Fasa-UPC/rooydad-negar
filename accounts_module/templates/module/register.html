@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="{% static 'style/font.css' %}"/>
     <link rel="stylesheet" href="{% static 'style/tailwind.css' %}"/>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}"/>
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -83,5 +84,19 @@
     <p class="text-[0.8rem] mx-auto text-center text-red-600">{{ form.errors }}</p>
 </section>
 <a href="index.html"><i class="fas fa-left-long bg-gray-400 text-white p-2 rounded-md fixed bottom-2 left-1"></i></a>
+{% if is_successful is not None %}
+<div class="fixed bottom-4 right-4 z-50 notification">
+    <div class="{% if is_successful %}bg-green-600{% else %}bg-red-500{% endif %} text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2">
+        <i class="fas {% if is_successful %}fa-check-circle{% else %}fa-times-circle{% endif %}"></i>
+        <span class="text-sm">
+            {% if is_successful %}
+                ثبت‌نام با موفقیت انجام شد! لطفاً وارد شوید.
+            {% else %}
+                خطا در ثبت‌نام! لطفاً خطاها را بررسی کنید.
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endif %}
 </body>
 </html>
