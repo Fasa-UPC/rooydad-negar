@@ -12,7 +12,7 @@
                 {% for event in events %}
                     {% if event.status and event.capacity > 0 %}
                         <div class="box shadow-lg w-[85%] p-1 rounded-lg mx-auto">
-                            <a href="">
+                            <a href="{% url 'events:detail' event.slug %}">
                                 {% thumbnail event.image "345x273" crop="center" as im %}
                                     <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
                                          class="w-[18rem] block mx-auto">
@@ -25,7 +25,7 @@
                                 <a
                                         href="{% url 'events:detail' event.slug %}"
                                         class="text-[1rem] text-green-600 border-2 border-green-600 rounded-lg p-1 hover:text-white hover:bg-green-600 hover:border-transparent transition-all duration-300"
-                                >شرکت در رویداد</a
+                                >جزئیات بیشتر</a
                                 >
                                 {% if event.price > 0 %}
                                     <span class="text-[1rem] text-green-600">{{ event.price }} تومان</span>

@@ -84,7 +84,7 @@ def profile(request):
 @login_required(login_url='/account/login')
 def profile_events(request):
     user = request.user
-    user_events = Participant.objects.filter(user=user, status=True).all()
+    user_events = Participant.objects.filter(user=user, status=True).select_related('event').all()
     return render(request, 'module/profile_events.html', {
         'user': user,
         'events': user_events
