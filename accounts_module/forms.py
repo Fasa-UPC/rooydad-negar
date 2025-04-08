@@ -40,7 +40,6 @@ class RegisterForm(forms.Form):
     def clean_confirm_password(self):
         password = self.cleaned_data.get('password')
         confirm_password = self.cleaned_data.get('confirm_password')
-        print(self.cleaned_data)
 
         if password == confirm_password:
             return confirm_password
